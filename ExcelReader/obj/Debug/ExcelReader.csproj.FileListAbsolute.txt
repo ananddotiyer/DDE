@@ -1,0 +1,2 @@
+D:\Moolya\GitHub\DDE\ExcelReader\bin\Debug\ExcelReader.exe.config
+D:\Moolya\GitHub\DDE\ExcelReader\obj\Debug\ExcelReader.csproj.ResolveComReference.cache

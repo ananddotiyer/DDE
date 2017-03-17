@@ -1,0 +1,90 @@
+Welcome to a short demonstration of the DDE, tool/framework/engine.
+
+I hope you've already checked out my LinkedIn post on this topic, where I did explain the problem in some detail, the context, and the various aspects of the solution.
+
+(Open https://www.linkedin.com/pulse/dde-data-drive-engine-anand-iyer)
+If not, please check it out.
+
+****Break****
+
+But, to start with, let's go through the basics of the tool in the video here.  And, towards the end of this video, I'll also touch upon why I call this a framework and an engine, more than a tool.  Certainly, the contents of this video will not replace a detailed user documentation, which will follow suite in another week's time, hopefully.
+
+To reiterate the main points in the post, the purpose of the tool is to generate "test data", which is a driving factor for effective testing of all kinds, including the classical performance and test automation.
+
+The tool helps to generate "test data" of all sorts, shapes and sizes, from an excel template based on certain pre-defined rules.  
+
+The process is done in two steps.  The first step is optional, and converts an excel template to a text template, which is a textual representation of the excel counterpart.
+
+(open Sample Template.xls)
+Here's a sample excel template
+
+(open Sample Template.txt)
+and here's the corresponding text template
+
+(Show functions.py in editor)
+One of the most important things to understand about the design of this framework is support of user defined functions, all of which are defined in python in functions.py.  This extensibility of the tool, is what makes DDE a framework.
+
+Every function written here maps to a rule, and the return value is used to fill up the cell in spreadsheet.
+
+(Open ExcelReader.exe)
+Here's the main user interface for the tool.
+
+Let's see now how the step1, which is conversion from an Excel template to the text template can be achieved 
+
+(Delete Sample template.txt, and whow how to generate a new one, from Sample template.xls)
+
+Each function will be called from the text template using its name, followed by a colon, and its parameters separated by commas 
+
+(Show in Sample template.txt)
+
+Another important point to know about the tool is the support for references (both forward and backward), just like in Excel formula.  Thus, when a function parameter has a reference to C1, the tool makes a reference to the cell in the first column, for the corresponding row being filled at the moment.  Note, if C1 is being used as a literal, as opposed to a reference cell, embed it inside two forward slash like /C1/.
+
+(Show in Sample template.txt)
+
+At this point, let me say there are some built-in functions provided out-of-box in the tool, to use which you don't require to code any additional functions.  Only if you want to add your custom rules, you'll need to.
+
+It's also worth mentioning that the language used in this text template, was invented only for this purpose.
+
+Let's now take you through a few example templates, and see how they work.
+
+(OPen Demo_templates folder)
+
+****Break****
+
+Let me introduce you to other main elements of the tool's interface (Show all tabs in the ExcelReader.exe and explain)
+
+Let's just focus on the main tab now, which requires you to enter the number of rows to fill in the Excel template.
+
+Template_demo1 contains the most basic set of rules.  A set of headers, and a set of values.  It shows how the CHOICE function helps makes a random choice from the list.  It also shows how to make a Hello message to a static name value (my name), using SAYHELLO function.
+
+Let's see how it works
+(Show how the above template generates 100 rows)
+
+Template_demo2 contains a little more advanced set, that has multiple columns of what we saw with the previous template, but more importantly it shows how to deal with índirect references.
+
+Let's see how it works
+(Show how the above template generates 100 rows)
+
+While the previous template showed how forward references work, Template_demo3 shows how backward references can work.  This is a little complicated than the previous one, and needs two iterations of tool execution - one for filling all forward looking references, and another for all backward references.
+
+Let's see how it works.
+(Show how the above template generates 100 rows)
+
+Template_demo4 is quite interesting from a purely testing perspective, in that it creates entirely fake, but real looking names, addresses, cities, companies and so on.  The tool is capable of creating many different categories of such fake data.  We'll see how that works now.
+
+Let's see how it works.
+(Show how the above template generates 100 rows)
+
+In Template_demo5, you'll see not just a more complicated rule-set, but also use of built-in as well as python-based user defined functions. 
+
+Let's see how it works.
+(Show how the above template generates 100 rows)
+
+So far, we've seen how to use a user-defined function to fill data in Excel cells.  The works great as far as the defined function returns a string value.  However, it doesn't work as expected when the function returns a list (or a sequence) of strings.  Instead of filling the rows with each string in the list, it will dump all strings in the list into one cell.  This is probably not what you expect.  The tool takes care of this, by introducing the concept of storage.
+
+So, lastly, in Template_demo6 we'll see what happens when the function returns a list, rather than a string value.  In such cases, store the value in a variable rather than map it to a spreadsheet cell (like R1C1).  Once stored, it's available on an iterator object that can be iterated using the user-definied NEXT function, until there are items in the list or the number of rows to fill, whichever is lesser.
+
+Let's see how it works.
+(Show how the above template generates 100 rows)
+
+Let me conclude by briefly talking about what makes DDE an engine, more than being a framework.  While developing the DDE, it occured to me that Excel is only one of the many media, that's used to represent data.  Databases are typically and ultimately the storehouses of data, in most systems. Implementation of DDE has been done carefully to allow inheriting the core functionality with not much trouble, and receive data in other formats, including databases, and various file formats like xml, JSON, plist, vcf etc.

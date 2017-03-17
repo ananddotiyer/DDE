@@ -1,0 +1,3 @@
+$store|Number|1|(FILES_LIST:/D:\Moolya\GitHub\DDE/)
+
+R1C1|Number|1|(NEXT:$store)

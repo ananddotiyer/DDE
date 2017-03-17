@@ -1,0 +1,56 @@
+Hello everyone,
+
+Welcome to a demonstration of the DDE tool/framework, continuing from the part I.
+
+During the first part of the video, I explained the concepts based on which this tool is built, and also showed you how to create a text template from its excel counter-part.
+
+(OPen Demo_templates folder)
+
+In this part, let's see how the test data generation actually works. I've a few sample templates with me, which we would work with.
+
+
+****Break****
+
+Let me introduce you to other main elements of the tool's interface
+
+(Show all tabs in the ExcelReader.exe and explain File and Help menu)
+
+Let's just focus on the main tab now, which requires you to enter the number of rows to fill in the Excel template.
+
+Template_demo1 contains the most basic set of rules.  A set of headers, and a set of values.  It shows how the CHOICE function helps makes a random choice from the list.  It also shows how to make a Hello message to a static name value (my name), using SAYHELLO function.
+
+Let's see how it works
+(Show how the above template generates 100 rows)
+
+Template_demo2 contains a little more advanced set, that has multiple columns of what we saw with the previous template, but more importantly it shows how to deal with índirect references.
+
+Let's see how it works
+(Show how the above template generates 100 rows)
+
+While the previous template showed how forward references work, Template_demo3 shows how backward references can work.  This is a little complicated than the previous one, and needs two iterations of tool execution - one for filling all forward looking references, and another for all backward references.
+
+Let's see how it works.
+(Show how the above template generates 100 rows)
+
+Template_demo4 is quite interesting from a purely testing perspective, in that it creates entirely fake, but real looking names, addresses, cities, companies and so on.  The tool is capable of creating many different categories of such fake data.  We'll see how that works now.
+
+Let's see how it works.
+(Show how the above template generates 100 rows)
+
+In Template_demo5, you'll see not just a more complicated rule-set, but also use of built-in as well as python-based user defined functions. 
+
+Let's see how it works.
+(Show how the above template generates 100 rows)
+
+So far, we've seen how to use a user-defined function to fill data in Excel cells.  The works great as far as the defined function returns a string value.  However, it doesn't work as expected when the function returns a list (or a sequence) of strings.  Instead of filling the rows with each string in the list, it will dump all strings in the list into one cell.  This is probably not what you expect.  The tool takes care of this, by introducing the concept of storage.
+
+So, lastly, in Template_demo6 we'll see what happens when the function returns a list, rather than a string value.  In such cases, store the value in a variable rather than map it to a spreadsheet cell (like R1C1).  Once stored, it's available on an iterator object that can be iterated using the user-definied NEXT function, until there are items in the list or the number of rows to fill, whichever is lesser.
+
+Let's see how it works.
+(Show how the above template generates 100 rows)
+
+By now, you've got a good understanding of how DDE works.  For more information, contact me at anand.iyer@moolya.com.
+
+Thanks for watching, bye!
+
+Thanks for watching.
