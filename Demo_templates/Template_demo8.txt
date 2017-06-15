@@ -15,7 +15,7 @@ $serial|Serial|1|(LIST_SERIAL:None,1,1001)
 
 R1C1|Title|1|(NEXT:$serial)
 
-$video|Search|1|(VIDEO_SEARCH:software testing training)
+$video|Search|1|(VIDEO_SEARCH:/software testing training/)
 
 $title|Title|1|(LIST_FROM_DICT:$video,Title)
 
