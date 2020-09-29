@@ -227,7 +227,7 @@ namespace ExcelReader
             {
                 file_to_open = openFileDialog1.FileName;
 
-                string python_path = @"C:\Python27\python.exe";
+                string python_path = @"D:\Anaconda3\python.exe";
                 string path = Path.GetDirectoryName(file_to_open);
                 string main = "";
 
