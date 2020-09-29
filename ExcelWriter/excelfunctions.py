@@ -17,59 +17,59 @@ from xlutils.copy import copy
 from xlrd import *
 
 def openexcel (filename, sheetindex, mode="r"):
-    mybook = mycopybook = mysheet = None
-    
-    if mode == "r":
-        mybook = open_workbook(filename)
-        mysheet = mybook.sheet_by_index (sheetindex)
-        return mybook, mysheet
-    else:
-        mybook = open_workbook(filename, formatting_info=True, on_demand=True)
-        mycopybook = copy(mybook)
-        #sheet = get_sheet_by_name (copybook, sheetname)
-        mysheet = mycopybook.get_sheet (sheetindex)
-        return mybook, mycopybook, mysheet
-        
+	mybook = mycopybook = mysheet = None
+	
+	if mode == "r":
+		mybook = open_workbook(filename)
+		mysheet = mybook.sheet_by_index (sheetindex)
+		return mybook, mysheet
+	else:
+		mybook = open_workbook(filename, formatting_info=True, on_demand=True)
+		mycopybook = copy(mybook)
+		#sheet = get_sheet_by_name (copybook, sheetname)
+		mysheet = mycopybook.get_sheet (sheetindex)
+		return mybook, mycopybook, mysheet
+		
 def closeexcel (mybook):
-    mybook.release_resources()
-    
+	mybook.release_resources()
+	
 def get_sheet_by_name(book, name):
-    idx = 0
-    try:
-        while True:
-            sheet = book.get_sheet(idx)
-            if sheet.name == name:
-                return sheet
-            idx += 1
-    except IndexError:
-        return None
+	idx = 0
+	try:
+		while True:
+			sheet = book.get_sheet(idx)
+			if sheet.name == name:
+				return sheet
+			idx += 1
+	except IndexError:
+		return None
 
 def readfromexcelmap (excel_map, row, col):
-    return excel_map[(row, col)]
-    #return sheet.cell(row, col).value
+	return excel_map[(row, col)]
+	#return sheet.cell(row, col).value
 
 def readfromexcel (sheet, row, col):
-    try:
-        cell_value = sheet.cell(row, col).value
-    except:
-        cell_value = ""
-    return cell_value
+	try:
+		cell_value = sheet.cell(row, col).value
+	except:
+		cell_value = ""
+	return cell_value
 
 def writetoexcel (sheet, row, col, text):
-    sheet.write (row, col - 1, text)
+	sheet.write (row, col - 1, text)
 
 #unused function
 def writetoexcel_old (sheet, row, col, text):
-    rb = open_workbook("NSPBU_Template_New.xls", formatting_info=True, on_demand=True)
-    wb = copy(rb)
-    wb.get_sheet(0).write(0,0,'changed!')
-    sheet.save("output.xls")
-    
+	rb = open_workbook("NSPBU_Template_New.xls", formatting_info=True, on_demand=True)
+	wb = copy(rb)
+	wb.get_sheet(0).write(0,0,'changed!')
+	sheet.save("output.xls")
+	
 def map_excel (sheet, start_row, end_row, colcount):
-    excel_map = {}
-    
-    for each_row in range (start_row, end_row):
-        for each_col in range (colcount):
-            excel_map[(each_row, each_col + 1)] = readfromexcel (sheet, each_row, each_col)
-            
-    return excel_map
+	excel_map = {}
+	
+	for each_row in range (start_row, end_row):
+		for each_col in range (colcount):
+			excel_map[(each_row, each_col + 1)] = readfromexcel (sheet, each_row, each_col)
+			
+	return excel_map

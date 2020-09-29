@@ -104,14 +104,14 @@ def lexer_setup (function_args):
 
 def log (statement="", exception=False):
     if statement != "" and statement[-1] == ",":
-        print statement[:-1],
+        print (statement[:-1],end='')
         flog.write (statement[:-1])
     else:
-        print statement
+        print (statement)
         flog.write (statement + "\n")
     
     if exception:
         traceback.print_exc(file=flog)
         flog.write ("\n")
         #traceback.print_exc(sys.stdout)
-        print
+        print()
